@@ -1,0 +1,23 @@
+<view class="page">
+  <view class="local-card">
+    <text class="h2">本机最佳</text>
+    <text class="hint">基于本地最近 20 次飞行记录排序</text>
+    <view class="row" wx:for="{{topLocal}}" wx:key="id">
+      <text class="rank">{{index + 1}}</text>
+      <view class="mid">
+        <text class="time">{{item.dateStr}}</text>
+        <text class="sub">滞空 {{item.airStr}}</text>
+      </view>
+      <text class="pts">{{item.score}} 分</text>
+    </view>
+    <view class="empty-local" wx:if="{{!topLocal.length}}">暂无记录，先去飞一次吧</view>
+  </view>
+
+  <view class="v11">
+    <text class="h2">好友擂台</text>
+    <text class="v11-hint">还没接入云端，这块是「折纸折到一半」</text>
+    <text class="v11-body">
+      当前版本只有上面的本机榜。等后面接上云开发，再考虑好友滞空榜、综合分榜，以及「比谁扔得高」的挑战邀请——在那之前，别空等好友榜，先和身边人当面扔两把。
+    </text>
+  </view>
+</view>

@@ -1,0 +1,29 @@
+<view class="dash">
+  <text class="dash-title">这一趟随手记</text>
+  <canvas type="2d" id="accLine" class="line-canvas"></canvas>
+  <text class="cap-line">手上有多冲 · 随手描一条</text>
+  <text class="cap-hint">合加速度随时间（示意，别当精密尺子）</text>
+  <canvas type="2d" id="gyroLine" class="line-canvas"></canvas>
+  <text class="cap-line">转得有多欢 · 随手描一条</text>
+  <text class="cap-hint">角速度随时间（示意）</text>
+  <text class="dash-summary">{{summaryText}}</text>
+
+  <view class="cards">
+    <view class="card">
+      <text class="k">飞了多久</text>
+      <text class="v">{{display.air}}</text>
+    </view>
+    <view class="card">
+      <text class="k">估的高度</text>
+      <text class="v">{{display.h}}</text>
+    </view>
+    <view class="card">
+      <text class="k">转了几圈</text>
+      <text class="v">{{display.rot}}</text>
+    </view>
+    <view class="card">
+      <text class="k">最冲那一下</text>
+      <text class="v">{{display.acc}}</text>
+    </view>
+  </view>
+</view>

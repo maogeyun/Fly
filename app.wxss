@@ -1,0 +1,104 @@
+/** app.wxss — 全局：纸本手绘 / 童年纸飞机 */
+page {
+  /* 纸基与墨迹（避免纯黑白死灰） */
+  --bg-page: #e8e0d4;
+  --bg-surface: #f2ebe2;
+  --bg-surface-raised: #faf6ef;
+  --bg-chart: #e3dcd2;
+  --text-primary: #1c1b18;
+  --text-secondary: #4f4a44;
+  --text-muted: #7d756a;
+  /* 单色强调：浓墨 vs 铅笔灰 */
+  --ink: #141311;
+  --ink-soft: #2e2b27;
+  --pencil: #6b655c;
+  --rule-line: rgba(20, 19, 17, 0.07);
+  --border-subtle: rgba(20, 19, 17, 0.14);
+  --border-soft: rgba(20, 19, 17, 0.22);
+  --fill-glass: rgba(255, 252, 248, 0.55);
+  --fill-glass-strong: rgba(255, 252, 248, 0.78);
+  --mask: rgba(38, 34, 30, 0.52);
+  /* 兼容旧变量名（组件与页面已引用） */
+  --accent: var(--ink-soft);
+  --accent-dim: #45423d;
+  --sky: var(--ink-soft);
+  --peak: var(--ink);
+  --land: var(--pencil);
+  --points: var(--ink);
+
+  --space-xs: 8rpx;
+  --space-sm: 12rpx;
+  --space-md: 16rpx;
+  --space-lg: 24rpx;
+  --space-xl: 32rpx;
+  --space-2xl: 48rpx;
+  --z-modal: 100;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* 安全区（刘海、Home 条、横屏圆角）— 各页 padding 可引用 */
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+  --safe-right: env(safe-area-inset-right);
+  /* 阴影 token（纸本“压印感”） */
+  --shadow-1: 4rpx 5rpx 0 0 rgba(20, 19, 17, 0.06);
+  --shadow-2: 6rpx 8rpx 0 0 rgba(20, 19, 17, 0.08);
+  --shadow-3: 8rpx 10rpx 0 0 rgba(20, 19, 17, 0.1);
+  --shadow-4: 10rpx 12rpx 0 0 rgba(20, 19, 17, 0.14);
+
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family:
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Noto Sans SC",
+    "Microsoft YaHei",
+    sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  /* 横格纸弱纹理 + 纸纤维噪点感 */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      var(--rule-line) 31px,
+      var(--rule-line) 32px
+    ),
+    radial-gradient(ellipse 140% 60% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 55%);
+  background-size: 100% 32px, 100% 100%;
+}
+
+.safe-pad {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 横屏或矮屏时减弱背景装饰动效，减轻视觉干扰（与 prefers-reduced-motion 独立） */
+@media (orientation: landscape) {
+  page {
+    background-size: 100% 28px, 100% 100%;
+  }
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: #f7f4ee;
+  border-radius: 22rpx 26rpx 24rpx 20rpx;
+  font-weight: 600;
+  border: 3rpx solid var(--ink);
+  box-shadow: var(--shadow-3);
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-ghost {
+  background: var(--fill-glass-strong);
+  color: var(--text-primary);
+  border-radius: 22rpx 24rpx 20rpx 26rpx;
+  border: 3rpx dashed var(--border-soft);
+}
+
+.btn-ghost::after {
+  border: none;
+}

@@ -1,0 +1,156 @@
+<view class="page {{sharedReport ? 'page--shared' : ''}}">
+  <view class="motion-layer">
+    <view class="plane-drift plane-drift--a"><view class="plane-glyph"></view></view>
+    <view class="plane-drift plane-drift--b"><view class="plane-glyph"></view></view>
+    <view class="plane-drift plane-drift--c"><view class="plane-glyph"></view></view>
+  </view>
+
+  <view class="page-inner">
+    <view class="masthead">
+      <view class="plane-mark"><view class="plane-mark__fold"></view></view>
+      <view class="title-block">
+        <text class="title">飞机模式</text>
+        <text class="subtitle" wx:if="{{sharedReport}}">好友发来战书，来比一把？</text>
+        <text class="subtitle" wx:else>把手机抛起来——记一条弧线、打个分，方便发朋友圈较劲。</text>
+        <text class="teaser" wx:if="{{!sharedReport}}">飞完自动生成成绩，截图晒圈更省事。</text>
+      </view>
+    </view>
+
+    <view class="share-card" wx:if="{{sharedReport}}">
+      <block wx:if="{{sharedReport.score !== '—'}}">
+        <text class="share-kicker">好友这把飞了</text>
+        <view class="share-row">
+          <view class="share-score">
+            <text class="share-num">{{sharedReport.score}}</text>
+            <text class="share-unit">分</text>
+          </view>
+          <view class="share-meta">
+            <text class="share-grade" wx:if="{{sharedReport.grade && sharedReport.label}}">等级 {{sharedReport.grade}} · {{sharedReport.label}}</text>
+            <text class="share-grade" wx:elif="{{sharedReport.grade}}">等级 {{sharedReport.grade}}</text>
+            <text class="share-grade" wx:elif="{{sharedReport.label}}">{{sharedReport.label}}</text>
+            <text class="share-hint">点「扔一把」挑战 TA 这分数。</text>
+            <text class="share-hint share-hint--sub">仅展示摘要；你的详报只对你自己可见。</text>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <text class="share-kicker">好友发来战书</text>
+        <view class="share-row share-row--fallback">
+          <view class="share-meta">
+            <text class="share-grade" wx:if="{{sharedReport.grade && sharedReport.label}}">等级 {{sharedReport.grade}} · {{sharedReport.label}}</text>
+            <text class="share-grade" wx:elif="{{sharedReport.grade}}">等级 {{sharedReport.grade}}</text>
+            <text class="share-grade" wx:elif="{{sharedReport.label}}">{{sharedReport.label}}</text>
+            <text class="share-hint">对方分享没带分数，不影响你直接挑战。</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="cta">
+      <view class="cta-rail">
+        <text class="cta-caption">这就开扔</text>
+        <button
+          class="btn-primary main-btn"
+          hover-class="main-btn--pressed"
+          hover-start-time="16"
+          hover-stay-time="100"
+          bindtap="onTakeoff"
+        >
+          <text class="btn-main">扔一把</text>
+          <text class="btn-sub">开始记轨迹 · 自动打分</text>
+        </button>
+      </view>
+    </view>
+
+    <view class="secondary" wx:if="{{!sharedReport}}">
+      <navigator
+        url="/pages/ranking/ranking"
+        open-type="navigate"
+        class="sec-tile"
+        hover-class="sec-tile--pressed"
+        hover-start-time="16"
+        hover-stay-time="100"
+      >
+        <text class="sec-kicker">较劲</text>
+        <text class="sec-title">本机排行</text>
+        <text class="sec-hint">看看谁更飘</text>
+      </navigator>
+      <navigator
+        url="/pages/history/history"
+        open-type="navigate"
+        class="sec-tile"
+        hover-class="sec-tile--pressed"
+        hover-start-time="16"
+        hover-stay-time="100"
+      >
+        <text class="sec-kicker">战绩</text>
+        <text class="sec-title">往期成绩</text>
+        <text class="sec-hint">飞过的都算</text>
+      </navigator>
+    </view>
+
+    <view class="secondary-thin" wx:if="{{sharedReport}}">
+      <navigator
+        url="/pages/ranking/ranking"
+        open-type="navigate"
+        class="link-tap"
+        hover-class="link-tap--pressed"
+        hover-start-time="16"
+        hover-stay-time="100"
+      >本机排行</navigator>
+      <text class="sep">·</text>
+      <navigator
+        url="/pages/history/history"
+        open-type="navigate"
+        class="link-tap"
+        hover-class="link-tap--pressed"
+        hover-start-time="16"
+        hover-stay-time="100"
+      >往期成绩</navigator>
+    </view>
+
+    <view class="hint-wrap" wx:if="{{!sharedReport}}">
+      <text class="hint-label">安全提示</text>
+      <text class="hint">请在开阔、软垫或草地上方操作；戴好手机壳，别朝人或硬地扔。</text>
+    </view>
+
+    <text class="hint-thin" wx:if="{{sharedReport}}"><text class="hint-thin__tag">安全</text>请在开阔、软垫或草地上方抛掷；别朝人或硬地扔。</text>
+  </view>
+</view>
+
+<view class="mask" wx:if="{{showDisclaimer}}">
+  <view class="dialog">
+    <view class="dialog-top">
+      <text class="dialog-title">开始挑战前，确认安全</text>
+      <view
+        class="dialog-close"
+        hover-class="dialog-close--pressed"
+        hover-start-time="16"
+        hover-stay-time="100"
+        bindtap="closeDisclaimer"
+        aria-label="关闭并暂不挑战"
+      >先不扔</view>
+    </view>
+    <text class="dialog-lead">玩笑可以随便开，安全不能糊弄。下面这段不帅，但得认真看完。</text>
+    <scroll-view scroll-y class="dialog-scroll">
+      <text class="dialog-body">
+        抛掷手机可能导致设备损坏、屏幕碎裂或人身伤害。本产品仅供娱乐与实验，使用前请确保周围环境安全，并自行承担全部风险。
+        未成年人请在监护人指导下使用。继续即表示您已阅读并理解上述内容。
+      </text>
+    </scroll-view>
+    <checkbox-group class="check-group" bindchange="onDisclaimerChange">
+      <label class="check-row">
+        <checkbox value="agree" checked="{{disclaimerChecked}}" />
+        <text>已读上文，自愿承担风险</text>
+      </label>
+    </checkbox-group>
+    <button
+      class="btn-primary dialog-btn"
+      disabled="{{!disclaimerChecked}}"
+      hover-class="main-btn--pressed"
+      hover-start-time="16"
+      hover-stay-time="100"
+      bindtap="acceptDisclaimer"
+    >我会注意安全，开始挑战</button>
+  </view>
+</view>

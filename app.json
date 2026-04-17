@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/flying/flying",
+    "pages/report/report",
+    "pages/ranking/ranking",
+    "pages/history/history"
+  ],
+  "window": {
+    "navigationBarTitleText": "飞机模式",
+    "navigationBarBackgroundColor": "#ebe4d8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#e8e0d4",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

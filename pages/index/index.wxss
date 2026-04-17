@@ -1,0 +1,702 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-2xl);
+  padding-left: calc(var(--space-xl) + var(--safe-left));
+  padding-right: calc(var(--space-xl) + var(--safe-right));
+  padding-bottom: calc(
+    var(--space-2xl) + var(--space-2xl) + var(--space-lg) + var(--safe-bottom)
+  );
+  box-sizing: border-box;
+  max-width: 680rpx;
+  margin: 0 auto;
+}
+
+/* 背景纸飞机：弱对比、慢节奏，不抢主 CTA */
+.motion-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.plane-drift {
+  position: absolute;
+  line-height: 1;
+  opacity: 0.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 分享落地态：减少装饰动效，省电且不抢“战报”注意力 */
+.page--shared .plane-drift--b,
+.page--shared .plane-drift--c {
+  display: none;
+}
+
+.page--shared .plane-drift--a {
+  opacity: 0.14;
+}
+
+/* 简笔纸飞机：墨迹三角，避免系统 Emoji 气质 */
+.plane-glyph {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10rpx 0 10rpx 22rpx;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+.plane-drift--a {
+  top: 10%;
+  right: 6%;
+  animation: drift-a 11s ease-in-out infinite;
+}
+
+.plane-drift--a .plane-glyph {
+  border-width: 14rpx 0 14rpx 30rpx;
+}
+
+.plane-drift--b {
+  top: 42%;
+  left: 2%;
+  animation: drift-b 14s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.plane-drift--b .plane-glyph {
+  border-width: 9rpx 0 9rpx 20rpx;
+}
+
+.plane-drift--c {
+  bottom: 26%;
+  right: 10%;
+  animation: drift-c 9s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.plane-drift--c .plane-glyph {
+  border-width: 11rpx 0 11rpx 24rpx;
+}
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-16deg);
+    opacity: 0.16;
+  }
+  50% {
+    transform: translate(-18rpx, 22rpx) rotate(-22deg);
+    opacity: 0.28;
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(12deg);
+    opacity: 0.14;
+  }
+  50% {
+    transform: translate(26rpx, -14rpx) rotate(18deg);
+    opacity: 0.26;
+  }
+}
+
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+    opacity: 0.18;
+  }
+  33% {
+    transform: translate(-12rpx, -20rpx) rotate(-14deg);
+    opacity: 0.24;
+  }
+  66% {
+    transform: translate(16rpx, 8rpx) rotate(-6deg);
+    opacity: 0.2;
+  }
+}
+
+.page-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* 分享落地页：好友战报（挑战入口 + 成绩卡片） */
+.share-card {
+  background: var(--fill-glass-strong);
+  border-radius: 22rpx 18rpx 24rpx 20rpx;
+  padding: var(--space-lg);
+  border: 3rpx dashed var(--border-soft);
+  box-shadow: var(--shadow-2);
+  margin-bottom: var(--space-xl);
+}
+
+.share-kicker {
+  display: block;
+  font-size: 22rpx;
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: 4rpx;
+  margin-bottom: var(--space-sm);
+}
+
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.share-score {
+  display: flex;
+  align-items: baseline;
+  gap: 6rpx;
+  flex-shrink: 0;
+}
+
+.share-num {
+  font-size: 56rpx;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+  font-family: "Kaiti SC", "STKaiti", "PingFang SC", serif;
+}
+
+.share-unit {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.share-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.share-grade {
+  display: -webkit-box;
+  font-size: 26rpx;
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.share-hint {
+  display: block;
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.share-hint--sub {
+  font-size: 20rpx;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding-top: 2rpx;
+  line-height: 1.45;
+}
+
+/* 分享态 fallback（score === '—'）：整行说明替代数字区 */
+.share-row--fallback {
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.share-row--fallback .share-hint {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+/* 分享态：次级入口折叠为一行链接，压缩信息密度 */
+.secondary-thin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: 0 var(--space-xs);
+}
+
+.secondary-thin .sep {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.link-tap {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--ink-soft);
+  border-bottom: 3rpx dashed var(--border-soft);
+  padding: var(--space-xs) var(--space-sm) 2rpx;
+  min-height: 56rpx;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.12s var(--ease-out);
+}
+
+.link-tap--pressed {
+  opacity: 0.52;
+}
+
+/* 分享态：更短的安全一句（替代 hint-wrap 的长段落） */
+.hint-thin {
+  display: block;
+  font-size: 22rpx;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: auto;
+  padding: var(--space-sm) var(--space-md);
+  border: 2rpx dashed var(--border-subtle);
+  border-radius: 14rpx 16rpx 12rpx 18rpx;
+  background: var(--fill-glass);
+}
+
+.hint-thin__tag {
+  display: inline-block;
+  font-size: 20rpx;
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: 2rpx;
+  padding: 2rpx 10rpx;
+  margin-right: 10rpx;
+  border: 2rpx solid var(--ink-soft);
+  border-radius: 6rpx 8rpx 6rpx 8rpx;
+  line-height: 1.3;
+  transform: translateY(-2rpx);
+}
+
+/* 页头 */
+.masthead {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.plane-mark {
+  width: 72rpx;
+  flex-shrink: 0;
+  margin-top: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.plane-mark__fold {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 22rpx 0 22rpx 40rpx;
+  border-color: transparent transparent transparent var(--ink);
+  filter: drop-shadow(4rpx 5rpx 0 rgba(20, 19, 17, 0.12));
+  animation: paper-bob 3.6s ease-in-out infinite;
+}
+
+@keyframes paper-bob {
+  0%,
+  100% {
+    transform: rotate(-6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-3deg) translateY(-8rpx);
+  }
+}
+
+.title-block {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.title {
+  font-size: 56rpx;
+  font-weight: 700;
+  letter-spacing: 1rpx;
+  color: var(--text-primary);
+  font-family: "Kaiti SC", "STKaiti", "Songti SC", "PingFang SC", serif;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+.teaser {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 52ch;
+  margin-top: 4rpx;
+}
+
+/* 主操作：纸框托起 + 更大触控区 + 按压「压印」 */
+.cta {
+  margin-bottom: calc(var(--space-xl) + var(--space-xs));
+}
+
+.cta-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  background: var(--bg-surface-raised);
+  border: 3rpx solid var(--ink);
+  border-radius: 26rpx 22rpx 28rpx 20rpx;
+  box-shadow: var(--shadow-3);
+}
+
+.cta-caption {
+  font-size: 22rpx;
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: 4rpx;
+}
+
+.main-btn {
+  width: 100%;
+  min-height: 136rpx;
+  height: auto;
+  padding: 28rpx var(--space-xl);
+  line-height: 1.25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  box-shadow: var(--shadow-4) !important;
+  border-width: 4rpx !important;
+}
+
+.main-btn--pressed {
+  opacity: 0.93;
+  transform: translate(5rpx, 6rpx);
+  box-shadow: var(--shadow-2) !important;
+}
+
+.btn-main {
+  font-size: 38rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+}
+
+.btn-sub {
+  font-size: 24rpx;
+  font-weight: 500;
+  opacity: 0.94;
+  letter-spacing: 0.5rpx;
+}
+
+/* 次级：双 tile，竞技感更清晰 */
+.secondary {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.sec-tile {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-surface-raised);
+  border: 3rpx solid var(--ink);
+  border-radius: 20rpx 18rpx 22rpx 16rpx;
+  box-shadow: var(--shadow-2);
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  min-height: 132rpx;
+  justify-content: center;
+}
+
+.sec-kicker {
+  font-size: 20rpx;
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: 6rpx;
+}
+
+.sec-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.sec-hint {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.sec-tile--pressed {
+  opacity: 0.88;
+  transform: translate(4rpx, 5rpx);
+  box-shadow: var(--shadow-1);
+}
+
+.hint-wrap {
+  margin-top: auto;
+  padding-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 100%;
+}
+
+.hint-label {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: 2rpx;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  line-height: 1.55;
+  padding: var(--space-md) var(--space-lg);
+  border: 2rpx dashed var(--border-subtle);
+  border-radius: 16rpx 20rpx 18rpx 14rpx;
+  background: var(--fill-glass);
+}
+
+.mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--mask);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  padding: calc(var(--space-xl) + var(--safe-top))
+    calc(var(--space-xl) + var(--safe-right))
+    calc(var(--space-xl) + var(--safe-bottom))
+    calc(var(--space-xl) + var(--safe-left));
+  box-sizing: border-box;
+}
+
+.dialog {
+  width: 100%;
+  max-width: 640rpx;
+  background: var(--bg-surface-raised);
+  border-radius: 20rpx 24rpx 22rpx 18rpx;
+  padding: 44rpx 40rpx 40rpx;
+  border: 4rpx solid var(--ink);
+  box-shadow: var(--shadow-4);
+  box-sizing: border-box;
+}
+
+.dialog-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.dialog-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--ink);
+  font-family: "Kaiti SC", "STKaiti", "PingFang SC", serif;
+  display: block;
+  margin-bottom: 16rpx;
+  line-height: 1.3;
+}
+
+.dialog-close {
+  flex-shrink: 0;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: var(--ink-soft);
+  border-bottom: 3rpx dashed var(--border-soft);
+  min-height: 88rpx;
+  padding: var(--space-sm) var(--space-md) var(--space-xs);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dialog-close--pressed {
+  opacity: 0.5;
+}
+
+.dialog-lead {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.55;
+  margin-bottom: 20rpx;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--fill-glass);
+  border-left: 6rpx solid var(--ink);
+  border-radius: 0 12rpx 12rpx 0;
+}
+
+.dialog-scroll {
+  max-height: 280rpx;
+  margin-bottom: 24rpx;
+  border: 2rpx dashed var(--border-subtle);
+  border-radius: 14rpx 16rpx 12rpx 18rpx;
+  padding: var(--space-md) var(--space-lg);
+  box-sizing: border-box;
+  background: rgba(255, 252, 248, 0.35);
+}
+
+.dialog-body {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  display: block;
+}
+
+.check-group {
+  width: 100%;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  font-size: 26rpx;
+  color: var(--text-primary);
+  margin-bottom: 32rpx;
+  line-height: 1.45;
+  min-height: 88rpx;
+  padding: var(--space-xs) 0;
+  box-sizing: border-box;
+}
+
+.dialog-btn {
+  width: 100%;
+  min-height: 96rpx;
+  height: auto;
+  line-height: 1.35;
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-3) !important;
+}
+
+.dialog-btn[disabled] {
+  opacity: 0.48 !important;
+  box-shadow: var(--shadow-1) !important;
+}
+
+/* 矮屏（如横屏手机）：压缩首屏，保证 CTA 仍落在拇指区附近 */
+@media (max-height: 560px) {
+  .masthead {
+    margin-bottom: var(--space-xl);
+  }
+
+  .title {
+    font-size: 44rpx;
+  }
+
+  .subtitle {
+    font-size: 26rpx;
+  }
+
+  .main-btn {
+    min-height: 120rpx;
+    padding: 22rpx var(--space-lg);
+  }
+
+  .btn-main {
+    font-size: 34rpx;
+  }
+
+  .page--shared .share-card {
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .page--shared .secondary-thin {
+    margin-bottom: var(--space-sm);
+  }
+
+  .page--shared .hint-thin {
+    padding: 6rpx var(--space-md);
+  }
+}
+
+@media (orientation: landscape) {
+  .secondary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .hint-wrap {
+    padding-top: var(--space-md);
+  }
+
+  .page--shared .share-card {
+    margin-bottom: var(--space-md);
+  }
+
+  .page--shared .hint-thin {
+    margin-top: var(--space-sm);
+  }
+}
+
+/* 矮屏：免责声明区用视口比例限制，避免撑破一屏 */
+@media (max-height: 640px) {
+  .dialog-scroll {
+    max-height: 30vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plane-mark__fold,
+  .plane-drift {
+    animation: none !important;
+  }
+
+  .plane-drift {
+    opacity: 0.12 !important;
+  }
+
+  .main-btn--pressed,
+  .sec-tile--pressed {
+    transform: none !important;
+  }
+}

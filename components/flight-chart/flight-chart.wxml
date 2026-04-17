@@ -1,0 +1,4 @@
+<view class="fc-root">
+  <canvas type="2d" id="flightChartCanvas" class="fc-canvas"></canvas>
+  <text class="fc-summary">{{summaryText}}</text>
+</view>

@@ -1,0 +1,87 @@
+<scroll-view
+  scroll-y
+  class="page {{pageEntered ? 'page--entered' : ''}}"
+  style="height: {{scrollHeight}}px;"
+  wx:if="{{record}}"
+>
+  <view class="page-inner">
+    <view class="score-block delight-rise">
+      <view class="stamp" wx:if="{{pageEntered}}">着陆</view>
+      <text class="score-num">{{record.metrics.score}}</text>
+      <text class="grade">{{record.metrics.grade}} 级</text>
+      <text class="grade-label">{{record.metrics.gradeLabel}}</text>
+      <text class="delight-line" wx:if="{{delightLine}}">{{delightLine}}</text>
+      <text class="delight-hidden" wx:if="{{delightHidden}}">{{delightHidden}}</text>
+    </view>
+
+    <view class="report-block delight-rise delight-rise--1">
+    <view class="section-title">这一趟的弧线（侧视示意）</view>
+      <flight-chart points="{{record.trajectoryPoints}}" />
+    </view>
+
+    <view class="report-block delight-rise delight-rise--2">
+      <dashboard samplesLite="{{record.samplesLite}}" metrics="{{record.metrics}}" />
+    </view>
+
+    <view class="actions delight-rise delight-rise--3">
+      <button
+        class="btn-primary btn"
+        hover-class="btn-press"
+        hover-start-time="16"
+        hover-stay-time="100"
+        bindtap="onShareImage"
+      >生成分享图</button>
+      <button
+        class="btn-ghost btn"
+        hover-class="btn-press-ghost"
+        hover-start-time="16"
+        hover-stay-time="100"
+        bindtap="onAgain"
+      >再来一次</button>
+      <text class="actions-hint">发朋友圈：用「分享图」（静态图更全）</text>
+      <text class="actions-hint actions-hint--sub">发群/发朋友：用「转发小程序」（对方点开直接挑战）</text>
+      <view class="actions-secondary">
+        <button
+          class="btn-inline"
+          hover-class="btn-inline--press"
+          hover-start-time="16"
+          hover-stay-time="100"
+          open-type="share"
+        >转发小程序</button>
+        <navigator
+          url="/pages/ranking/ranking"
+          open-type="navigate"
+          class="link-tap"
+          hover-class="link-tap--pressed"
+          hover-start-time="16"
+          hover-stay-time="100"
+        >本机排行</navigator>
+        <navigator
+          url="/pages/history/history"
+          open-type="navigate"
+          class="link-tap"
+          hover-class="link-tap--pressed"
+          hover-start-time="16"
+          hover-stay-time="100"
+        >往期成绩</navigator>
+      </view>
+    </view>
+
+    <text class="foot-risk delight-rise delight-rise--4">风险提示：抛掷手机可能摔坏或伤人。请在开阔、软垫/草地上方操作，别朝人或硬地扔。</text>
+  </view>
+</scroll-view>
+
+<view class="empty" wx:else>
+  <view class="empty-inner">
+    <text class="empty-text">这次还没有生成成绩。回首页扔一把，落地后就能看到飞行报告。</text>
+    <button
+      class="btn-primary empty-btn"
+      hover-class="empty-btn--pressed"
+      hover-start-time="16"
+      hover-stay-time="100"
+      bindtap="onAgain"
+    >返回首页</button>
+  </view>
+</view>
+
+<canvas type="2d" id="shareCanvas" class="share-canvas"></canvas>

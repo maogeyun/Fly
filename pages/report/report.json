@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "飞行报告",
+  "usingComponents": {
+    "flight-chart": "/components/flight-chart/flight-chart",
+    "dashboard": "/components/dashboard/dashboard"
+  }
+}

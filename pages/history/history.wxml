@@ -1,0 +1,26 @@
+<view class="page">
+  <text class="hint">最多保留最近 20 次</text>
+  <scroll-view scroll-y class="list">
+    <view
+      class="item"
+      wx:for="{{list}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      hover-class="item--pressed"
+      hover-start-time="16"
+      hover-stay-time="100"
+      bindtap="openReport"
+    >
+      <view class="left">
+        <text class="score">{{item.score}}</text>
+        <text class="unit">分</text>
+      </view>
+      <view class="mid">
+        <text class="grade">{{item.grade}} · {{item.gradeLabel}}</text>
+        <text class="sub">滞空 {{item.airStr}} · {{item.dateStr}}</text>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+    <view class="empty" wx:if="{{!list.length}}">暂无历史，去首页起飞吧</view>
+  </scroll-view>
+</view>

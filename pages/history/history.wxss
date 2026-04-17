@@ -1,0 +1,104 @@
+.page {
+  min-height: 100vh;
+  max-width: 680rpx;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg) calc(var(--space-xl) + var(--safe-right))
+    calc(var(--space-md) + var(--safe-bottom))
+    calc(var(--space-xl) + var(--safe-left));
+  box-sizing: border-box;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  display: block;
+  line-height: 1.45;
+}
+
+.list {
+  flex: 1;
+  height: 0;
+  min-height: 240rpx;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  background: var(--fill-glass-strong);
+  border-radius: 20rpx 18rpx 22rpx 16rpx;
+  padding: var(--space-lg) var(--space-lg);
+  margin-bottom: var(--space-md);
+  border: 3rpx solid var(--border-soft);
+  box-shadow: var(--shadow-1);
+  min-height: 96rpx;
+  box-sizing: border-box;
+}
+
+.item--pressed {
+  opacity: 0.72;
+  transform: scale(0.99);
+}
+
+.left {
+  width: 120rpx;
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+}
+
+.score {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: var(--ink);
+  font-family: "Kaiti SC", "STKaiti", "PingFang SC", serif;
+}
+
+.unit {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.mid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.grade {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.sub {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.arrow {
+  font-size: 40rpx;
+  color: var(--ink-soft);
+  opacity: 0.85;
+  font-weight: 300;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: calc(var(--space-2xl) + var(--space-lg)) var(--space-xl);
+  font-size: 28rpx;
+  border: 3rpx dashed var(--border-subtle);
+  border-radius: 20rpx;
+  margin-top: var(--space-lg);
+  background: var(--fill-glass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item--pressed {
+    transform: none !important;
+  }
+}

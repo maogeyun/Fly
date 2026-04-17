@@ -1,0 +1,464 @@
+.wrap {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-page);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      var(--rule-line) 31px,
+      var(--rule-line) 32px
+    ),
+    radial-gradient(ellipse 140% 60% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 55%);
+  background-size: 100% 32px, 100% 100%;
+  padding-top: calc(var(--space-md) + var(--safe-top));
+}
+
+.nav-row {
+  flex-shrink: 0;
+  padding: 0 calc(var(--space-xl) + var(--safe-right)) var(--space-md)
+    calc(var(--space-xl) + var(--safe-left));
+}
+
+.nav-back {
+  color: var(--ink-soft);
+  font-size: 28rpx;
+  font-weight: 600;
+  border-bottom: 3rpx dashed var(--border-soft);
+  display: inline-flex;
+  align-items: center;
+  min-height: 88rpx;
+  padding: var(--space-sm) 0 var(--space-xs);
+  box-sizing: border-box;
+}
+
+.nav-back--pressed {
+  opacity: 0.5;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-xl)
+    calc(var(--space-2xl) + var(--safe-bottom));
+  min-height: 0;
+}
+
+.safety {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.55;
+  margin-bottom: calc(var(--space-2xl) + var(--space-md));
+  max-width: 600rpx;
+  padding: var(--space-md) var(--space-lg);
+  border: 3rpx solid var(--ink);
+  border-radius: 18rpx 22rpx 20rpx 16rpx;
+  background: var(--fill-glass-strong);
+}
+
+.count {
+  font-size: 160rpx;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+  font-family: "Kaiti SC", "STKaiti", "Songti SC", "PingFang SC", serif;
+  animation: count-tick 1s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes count-tick {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  12% {
+    transform: scale(1.06);
+  }
+}
+
+.sub {
+  font-size: 28rpx;
+  color: var(--text-muted);
+  margin-top: var(--space-lg);
+}
+
+.countdown-hint {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  margin-top: var(--space-md);
+  text-align: center;
+  line-height: 1.45;
+  max-width: 560rpx;
+  padding: 0 var(--space-md);
+}
+
+.flying-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sky {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  padding: var(--space-lg) calc(var(--space-xl) + var(--safe-right)) 0
+    calc(var(--space-xl) + var(--safe-left));
+}
+
+/* 飞机：外层阶段动效 + 内层陀螺仪倾斜（只动 transform） */
+.plane-stack {
+  margin-top: 8rpx;
+}
+
+.plane-bob {
+  display: flex;
+  justify-content: center;
+  will-change: transform;
+}
+
+.plane-stack--idle .plane-bob {
+  animation: bob-idle 3.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.plane-stack--throw .plane-bob {
+  animation: bob-throw 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.plane-stack--air .plane-bob {
+  animation: bob-air 1.85s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.plane-stack--land .plane-bob {
+  animation: bob-land 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes bob-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10rpx);
+  }
+}
+
+@keyframes bob-throw {
+  0% {
+    transform: translateY(16rpx) scale(1);
+  }
+  55% {
+    transform: translateY(-52rpx) scale(1.1);
+  }
+  100% {
+    transform: translateY(-12rpx) scale(1);
+  }
+}
+
+@keyframes bob-air {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20rpx);
+  }
+}
+
+@keyframes bob-land {
+  0% {
+    transform: translateY(-16rpx);
+  }
+  100% {
+    transform: translateY(6rpx);
+  }
+}
+
+.plane-tilt {
+  transition: transform 0.1s linear;
+}
+
+/* 简笔纸飞机（墨迹三角），与首页语言一致 */
+.plane-ico {
+  width: 140rpx;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plane-ico__fold {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 36rpx 0 36rpx 66rpx;
+  border-color: transparent transparent transparent var(--ink);
+  filter: drop-shadow(6rpx 8rpx 0 rgba(20, 19, 17, 0.1));
+}
+
+.flying-text {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: var(--space-lg);
+  letter-spacing: 1rpx;
+  font-family: "Kaiti SC", "STKaiti", "PingFang SC", serif;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.phase-tip {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+  text-align: center;
+  max-width: 620rpx;
+  line-height: 1.45;
+  padding: 0 var(--space-md);
+}
+
+/* 实时侧视轨迹 canvas */
+.trail-panel {
+  width: 100%;
+  max-width: 640rpx;
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-md) var(--space-md);
+  background: var(--fill-glass-strong);
+  border: 3rpx solid var(--ink);
+  border-radius: 20rpx 22rpx 18rpx 24rpx;
+  box-shadow: var(--shadow-2);
+}
+
+.live-traj-canvas {
+  width: 100%;
+  height: 220rpx;
+  display: block;
+  border-radius: 12rpx 14rpx 10rpx 16rpx;
+  background: var(--bg-chart);
+  border: 2rpx dashed var(--border-subtle);
+}
+
+.trail-cap {
+  display: block;
+  font-size: 22rpx;
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+  text-align: center;
+  letter-spacing: 1rpx;
+}
+
+.stop-wrap {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 calc(var(--space-xl) + var(--safe-right)) 0
+    calc(var(--space-xl) + var(--safe-left));
+  box-sizing: border-box;
+  margin-top: auto;
+  padding-top: var(--space-lg);
+  margin-bottom: calc(var(--space-2xl) + var(--space-lg) + var(--safe-bottom));
+  gap: var(--space-sm);
+}
+
+.btn-stop {
+  width: 100%;
+  max-width: 560rpx;
+  min-height: 112rpx;
+  height: auto;
+  padding: var(--space-md) var(--space-lg);
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: var(--bg-surface-raised);
+  color: var(--ink);
+  border-radius: 22rpx 20rpx 24rpx 18rpx;
+  border: 4rpx solid var(--ink);
+  box-shadow: var(--shadow-3);
+  transition:
+    transform 0.12s var(--ease-out),
+    opacity 0.12s var(--ease-out),
+    box-shadow 0.12s var(--ease-out);
+}
+
+.btn-stop-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  pointer-events: none;
+}
+
+.btn-stop-main {
+  font-size: 30rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  color: var(--ink);
+}
+
+.btn-stop-sub {
+  font-size: 22rpx;
+  font-weight: 600;
+  letter-spacing: 0.5rpx;
+  color: var(--ink-soft);
+  opacity: 0.9;
+}
+
+.btn-stop-hint {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.4;
+  max-width: 560rpx;
+  padding: 0 var(--space-xs);
+}
+
+.btn-stop--pressed {
+  opacity: 0.9;
+  transform: translate(4rpx, 5rpx);
+  box-shadow: var(--shadow-1);
+}
+
+.btn-stop::after {
+  border: none;
+}
+
+/* 生成报告 */
+.gen {
+  flex: 1;
+  min-height: 0;
+  padding-bottom: var(--safe-bottom);
+}
+
+.gen-plane {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: gen-float 1.6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.gen-plane__fold {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 24rpx 0 24rpx 44rpx;
+  border-color: transparent transparent transparent var(--ink);
+  filter: drop-shadow(4rpx 5rpx 0 rgba(20, 19, 17, 0.08));
+}
+
+@keyframes gen-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-14rpx) rotate(-3deg);
+  }
+}
+
+.gen-title {
+  margin-top: var(--space-lg);
+}
+
+.gen-dots {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.gen-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0.35;
+  animation: dot-breathe 0.9s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.gen-dot--b {
+  animation-delay: 0.15s;
+}
+
+.gen-dot--c {
+  animation-delay: 0.3s;
+}
+
+@keyframes dot-breathe {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.15);
+  }
+}
+
+/* 横屏 / 矮屏：压缩倒计时与轨迹高度，避免与底部按钮重叠 */
+@media (max-height: 520px) {
+  .count {
+    font-size: 112rpx;
+  }
+
+  .safety {
+    margin-bottom: var(--space-xl);
+    font-size: 24rpx;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .live-traj-canvas {
+    height: 160rpx;
+  }
+
+  .trail-panel {
+    margin-top: var(--space-md);
+  }
+
+  .plane-stack {
+    margin-top: 0;
+  }
+
+  .flying-text {
+    font-size: 34rpx;
+    margin-top: var(--space-sm);
+  }
+}
+
+@media (orientation: landscape) {
+  .sky {
+    padding-top: var(--space-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plane-bob,
+  .count,
+  .gen-plane,
+  .gen-dot {
+    animation: none !important;
+  }
+
+  .plane-tilt,
+  .flying-text,
+  .btn-stop {
+    transition: none !important;
+  }
+
+  .btn-stop--pressed {
+    transform: none !important;
+  }
+}
